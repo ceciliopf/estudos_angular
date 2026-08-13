@@ -28,8 +28,8 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
         HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        List<Erro> erros = criarListaDeErros(ex);
-        return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
+        //List<Erro> erros = criarListaDeErros(ex);
+        return handleExceptionInternal(ex,"ta mandando coisa a mais", headers, HttpStatus.BAD_REQUEST, request);
     }
 
     @Override
