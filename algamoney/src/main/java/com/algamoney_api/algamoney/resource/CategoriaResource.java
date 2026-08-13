@@ -12,6 +12,7 @@ import com.algamoney_api.algamoney.model.Categoria;
 import com.algamoney_api.algamoney.repository.CategoriaRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class CategoriaResource {
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> criar(@RequestBody Categoria categoria) {
+    public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria) {
     Categoria categoriaSalva = categoriaRepository.save(categoria);
     
     URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
