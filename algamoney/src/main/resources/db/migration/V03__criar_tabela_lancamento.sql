@@ -1,24 +1,32 @@
 CREATE TABLE lancamento (
-    codigo BIGINT(20) NOT NULL,
+    codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    descricao VARCHAR(50) NOT NULL,
     data_vencimento DATE NOT NULL,
     data_pagamento DATE,
-    vakir DECIMAL(10,2) NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
     observacao VARCHAR(100),
     tipo VARCHAR(20) NOT NULL,
-    codigo_categoria BIGINT(20)NOT NULL,
+    codigo_categoria BIGINT(20) NOT NULL,
     codigo_pessoa BIGINT(20) NOT NULL,
     FOREIGN KEY (codigo_categoria) REFERENCES categoria(codigo),
     FOREIGN KEY (codigo_pessoa) REFERENCES pessoa(codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO lancamento (codigo, data_vencimento, data_pagamento, vakir, observacao, tipo, codigo_categoria, codigo_pessoa) VALUES 
-(1, '2026-08-10', '2026-08-10', 1500.00, 'Salário mensal', 'RECEITA', 1, 1),
-(2, '2026-08-15', NULL, 120.50, 'Conta de luz', 'DESPESA', 2, 2),
-(3, '2026-08-20', '2026-08-18', 85.00, 'Conta de água', 'DESPESA', 2, 3),
-(4, '2026-08-05', '2026-08-05', 300.00, 'Venda de bicicleta', 'RECEITA', 3, 4),
-(5, '2026-08-25', NULL, 1500.00, 'Aluguel da casa', 'DESPESA', 4, 5),
-(6, '2026-08-12', '2026-08-11', 250.00, 'Compras no supermercado', 'DESPESA', 5, 1),
-(7, '2026-08-30', NULL, 50.00, 'Provedor de internet', 'DESPESA', 2, 2),
-(8, '2026-08-01', '2026-08-01', 500.00, 'Rendimento de investimentos', 'RECEITA', 3, 3),
-(9, '2026-08-18', NULL, 120.00, 'Mensalidade da academia', 'DESPESA', 4, 4),
-(10, '2026-08-22', '2026-08-22', 80.00, 'Medicamentos na farmácia', 'DESPESA', 5, 5);
+INSERT INTO lancamento 
+(descricao, data_vencimento, data_pagamento, valor, observacao, tipo, codigo_categoria, codigo_pessoa) 
+VALUES 
+('Salário mensal', '2023-10-05', '2023-10-05', 6500.00, 'Salário referente a Setembro', 'RECEITA', 1, 1),
+('Supermercado', '2023-10-10', '2023-10-09', 850.50, 'Compras do mês', 'DESPESA', 2, 2),
+('Conta de Luz', '2023-10-15', NULL, 180.90, 'Referência Setembro', 'DESPESA', 3, 1),
+('Conta de Água', '2023-10-20', '2023-10-18', 95.00, NULL, 'DESPESA', 3, 1),
+('Restaurante', '2023-10-08', '2023-10-08', 120.00, 'Almoço de domingo', 'DESPESA', 4, 2),
+('Venda de notebook', '2023-10-12', '2023-10-12', 3200.00, 'Venda de equipamento usado', 'RECEITA', 5, 1),
+('Mensalidade Academia', '2023-10-05', '2023-10-05', 110.00, 'Plano anual', 'DESPESA', 1, 2),
+('Farmácia', '2023-10-18', NULL, 65.40, 'Remédios para gripe', 'DESPESA', 2, 1),
+('Aluguel', '2023-10-10', '2023-10-10', 1500.00, NULL, 'DESPESA', 3, 1),
+('Rendimento de Investimentos', '2023-10-31', '2023-10-31', 450.00, 'Dividendos e FIIs', 'RECEITA', 4, 1),
+('Gasolina', '2023-10-02', '2023-10-02', 200.00, 'Viagem fim de semana', 'DESPESA', 5, 2),
+('Manutenção Carro', '2023-10-25', NULL, 850.00, 'Troca de óleo e freios', 'DESPESA', 1, 2),
+('Freelance de Design', '2023-10-15', '2023-10-15', 1200.00, 'Criação de logo', 'RECEITA', 2, 2),
+('Internet e TV', '2023-10-20', '2023-10-19', 160.00, 'Plano combo', 'DESPESA', 3, 1),
+('Cinema e Pipoca', '2023-10-22', '2023-10-22', 85.00, 'Ingressos e lanche', 'DESPESA', 4, 2);
