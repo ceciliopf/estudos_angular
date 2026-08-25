@@ -11,16 +11,8 @@ import { BemVindo } from './bem-vindo/bem-vindo';
 export class App {
   nome = 'Thiago';
 
-  adicionar(){
-    console.log(`Adicionando ${this.nome}`);
-
-    const numero = Math.round(Math.random() * 100);
-    this.nome= "Joao " + numero;
-  }
-
-  alterarNome(event: any){
-    console.log(event);
-    this.nome = event.target.value
+  adicionar(nome: any){
+    this.nome=nome;
   }
 
 }
