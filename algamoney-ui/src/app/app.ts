@@ -9,5 +9,5 @@ import { BemVindo } from './bem-vindo/bem-vindo';
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('algamoney-ui');
+  nome = 'Thiago';
 }
