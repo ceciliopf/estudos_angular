@@ -12,14 +12,8 @@
 
     <div class="row mt-3">
         <div class="col-2" *ngFor="let funcionario of funcionarios">
-            <div class="card">
-                <img src="https://randomuser.me/api/portraits/men/{{funcionario.id}}.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{funcionario.nome}}</h5>
-                </div>
-            </div>
-        </div>
+        <app-funcionario-card [funcionario]="funcionario"></app-funcionario-card>
     </div>
-
+    </div>
 
 </div>

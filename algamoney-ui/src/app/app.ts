@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BemVindo } from './bem-vindo/bem-vindo';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FuncionarioCard } from './funcionario-card/funcionario-card';
 
 @Component({
-  imports: [RouterOutlet, BemVindo, FormsModule, CommonModule],
+  imports: [RouterOutlet, FormsModule, CommonModule, FuncionarioCard],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
