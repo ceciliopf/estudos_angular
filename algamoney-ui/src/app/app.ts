@@ -11,12 +11,20 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.html',
 })
 export class App {
+  ultimoId = 0;
   nome = 'Thiago';
   adicionado = false;
+  funcionarios: { id: number, nome: string }[] = [];
 
-  adicionar(){
+  adicionar() {
     console.log(`Adicionando ${this.nome}`);
     this.adicionado = true;
+
+    this.funcionarios.push({
+      id: ++this.ultimoId,
+      nome: this.nome
+
+    });
   }
 
 }
