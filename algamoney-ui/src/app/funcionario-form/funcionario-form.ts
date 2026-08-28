@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output} from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @Component({
-  imports: [],
+  imports: [FormsModule,CommonModule],
   selector: 'app-funcionario-form',
   styleUrl: './funcionario-form.css',
   templateUrl: './funcionario-form.html',

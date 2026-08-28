@@ -14,8 +14,7 @@ import { FuncionarioForm } from './funcionario-form/funcionario-form';
 export class App {
    funcionarios: { id: number, nome: string }[] = [];
 
-   aoAdicionar(){
-    
-   }
+   aoAdicionar(funcionario: { id: number, nome: string }){
+    this.funcionarios.push(funcionario);
 }
-
+}

@@ -1,5 +1,5 @@
 <div class="container">
-    <app-funcionario-form (funcionarioAdicionado)="aoAdicionar"></app-funcionario-form>
+    <app-funcionario-form (funcionarioAdicionado)="aoAdicionar($event)"></app-funcionario-form>
 
     <div class="row mt-3">
         <div class="col-2" *ngFor="let funcionario of funcionarios">
