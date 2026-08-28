@@ -3,28 +3,19 @@ import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FuncionarioCard } from './funcionario-card/funcionario-card';
+import { FuncionarioForm } from './funcionario-form/funcionario-form';
 
 @Component({
-  imports: [RouterOutlet, FormsModule, CommonModule, FuncionarioCard],
+  imports: [RouterOutlet, FormsModule, CommonModule, FuncionarioCard, FuncionarioForm],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
 })
 export class App {
-  ultimoId = 0;
-  nome = 'Thiago';
-  adicionado = false;
-  funcionarios: { id: number, nome: string }[] = [];
+   funcionarios: { id: number, nome: string }[] = [];
 
-  adicionar() {
-    console.log(`Adicionando ${this.nome}`);
-    this.adicionado = true;
-
-    this.funcionarios.push({
-      id: ++this.ultimoId,
-      nome: this.nome
-
-    });
-  }
-
+   aoAdicionar(){
+    
+   }
 }
+
