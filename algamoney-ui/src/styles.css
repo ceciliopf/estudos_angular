@@ -6,6 +6,11 @@ body {
     background-color: #ffffff;
 }
 
+.p-datatable .p-datatable-thead > tr > th {
+    background-color: #1e94d2 !important;
+    color: #ffffff !important;
+}
+
 label {
     font-weight: bold;
 }
