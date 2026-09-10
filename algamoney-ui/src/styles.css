@@ -10,7 +10,7 @@ label {
 }
 
 .container {
-    max-width: 1170px;
+    max-width: 1100px;
     margin: 0 auto;
 
 }
@@ -34,12 +34,13 @@ label {
     }
 
     .col-acoes-header {
-        width: 115px;
+        width: 140px;
     }
 
     .col-acoes {
-        width: 115px;
+        width: 140px;
         text-align: center !important;
+        white-space: nowrap;
     }
 
     .col-acoes .p-button {
@@ -74,6 +75,10 @@ label {
         align-items: center;
         text-align: right;
         padding: 0.5rem;
+    }
+    .p-datatable tbody td.col-acoes {
+        justify-content: flex-end;
+        gap: 8px;
     }
 
     .p-datatable tbody td .p-column-title {
