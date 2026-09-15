@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -7,9 +8,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-  imports: [FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule, DropdownModule, InputNumberModule],
+  imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule, DropdownModule, InputNumberModule, MessageModule],
   selector: 'app-lancamento-cadastro',
   styleUrl: './lancamento-cadastro.css',
   templateUrl: './lancamento-cadastro.html',
