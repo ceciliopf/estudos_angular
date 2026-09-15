@@ -9,9 +9,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MessageModule } from 'primeng/message';
+import { MessageComponent } from '../message/message';
 
 @Component({
-  imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule, DropdownModule, InputNumberModule, MessageModule],
+  imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule, DropdownModule, InputNumberModule, MessageModule, MessageComponent],
   selector: 'app-lancamento-cadastro',
   styleUrl: './lancamento-cadastro.css',
   templateUrl: './lancamento-cadastro.html',
