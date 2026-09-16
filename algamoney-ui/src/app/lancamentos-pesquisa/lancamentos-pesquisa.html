@@ -23,7 +23,7 @@
   </div>
   <div class="grid">
     <div class="col-12">
-      <p-table [value]="lancamentos" [paginator]="true" [rows]="2" responsiveLayout="stack">
+      <p-table [value]="lancamentos" [paginator]="true" [rows]="5" responsiveLayout="stack">
         <ng-template pTemplate="header">
           <tr>
             <th>Pessoa</th>
@@ -38,7 +38,7 @@
           <tr>
             <td>
               <span class="p-column-title">Pessoa</span>
-              {{ lancamento.pessoa }}
+              {{ lancamento.pessoa?.nome }}
             </td>
             <td>
               <span class="p-column-title">Descrição</span>

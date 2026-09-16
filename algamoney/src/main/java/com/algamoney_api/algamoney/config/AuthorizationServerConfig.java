@@ -58,6 +58,7 @@ public class AuthorizationServerConfig {
             .oidc(Customizer.withDefaults()); // Habilita suporte OIDC (opcional, mas útil)
 
         http
+            .cors(Customizer.withDefaults())
             .exceptionHandling(exceptions -> exceptions
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
             )
@@ -78,6 +79,7 @@ public class AuthorizationServerConfig {
             .clientSecret(encoder.encode("@ngul@r0"))
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
             .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+            .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .scope("read")
             .scope("write")
