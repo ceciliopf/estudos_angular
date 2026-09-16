@@ -1,25 +1,28 @@
 <div class="container">
   <div class="grid">
-    <div class="col-12">
-      <h1>Lançamentos</h1>
-    </div>
+    <form autocomplete="off" (ngSubmit)="pesquisar()" class="p-fluid">
 
-    <div class="col-12">
-      <label>Descrição</label>
-      <input pInputText type="text" class="w-full" />
-    </div>
+      <div class="col-12">
+        <h1>Lançamentos</h1>
+      </div>
 
-    <div class="col-12">
-      <label style="display: block">Vencimento</label>
-      <input pInputText type="text" style="width: 95px" />
+      <div class="col-12">
+        <label>Descrição</label>
+        <input pInputText type="text" class="w-full" name="descricao" [(ngModel)]="descricao" />
+      </div>
 
-      <label style="margin: 5px">Até</label>
-      <input pInputText type="text" style="width: 95px" />
-    </div>
+      <div class="col-12">
+        <label style="display: block">Vencimento</label>
+        <input pInputText type="text" style="width: 95px" />
 
-    <div class="col-12">
-      <button pButton type="submit" severity="secondary" label="Pesquisar"></button>
-    </div>
+        <label style="margin: 5px">Até</label>
+        <input pInputText type="text" style="width: 95px" />
+      </div>
+
+      <div class="col-12">
+        <button pButton type="submit" severity="secondary" label="Pesquisar"></button>
+      </div>
+    </form>
   </div>
   <div class="grid">
     <div class="col-12">

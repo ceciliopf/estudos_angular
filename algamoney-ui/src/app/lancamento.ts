@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
+
+export interface LancamentoFiltro {
+  descricao: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +17,7 @@ export class Lancamento {
 
     constructor (private http: HttpClient) {}
 
-    async pesquisar(): Promise<any> {
+    async pesquisar(filtro: LancamentoFiltro): Promise<any> {
         const tokenHeaders = new HttpHeaders()
             .append('Content-Type', 'application/x-www-form-urlencoded')
             .append('Authorization', 'Basic ' + btoa('angular:@ngul@r0'));
@@ -28,8 +33,15 @@ export class Lancamento {
         const headers = new HttpHeaders()
             .append('Authorization', `Bearer ${tokenResponse.access_token}`);
 
-        return firstValueFrom(this.http.get<any>(`${this.lancamentosUrl}?resumo`, { headers }))
-        .then(response => {
+        let params = new HttpParams()
+            .set('resumo', '');
+
+        if (filtro.descricao) {
+            params = params.set('descricao', filtro.descricao);
+        }
+
+        return firstValueFrom(this.http.get<any>(this.lancamentosUrl, { headers, params, responseType: 'json' }))
+        .then((response: any) => {
             return response.content;
         });
     }

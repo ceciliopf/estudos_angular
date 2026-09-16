@@ -5,33 +5,38 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonDirective } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 import { Lancamento } from '../lancamento';
 
+
+
 @Component({
-  imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule],
+  imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule, FormsModule],
   selector: 'app-lancamentos-pesquisa',
   styleUrl: './lancamentos-pesquisa.css',
   templateUrl: './lancamentos-pesquisa.html',
 })
 export class LancamentosPesquisa implements OnInit {
+  descricao = '';
+
   lancamentos: any[] = [];
   constructor(
     private lancamentoService: Lancamento,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.pesquisar();
   }
 
-  pesquisar(){
-   this.lancamentoService.pesquisar()
-   .then(lancamentos => {
-       this.lancamentos = lancamentos;
-       this.cdr.detectChanges();
-   });
+  pesquisar() {
+    this.lancamentoService.pesquisar({ descricao: this.descricao })
+      .then(lancamentos => {
+        this.lancamentos = lancamentos;
+        this.cdr.detectChanges();
+      });
   }
 
 }
