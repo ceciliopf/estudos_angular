@@ -63,6 +63,12 @@ public class LancamentoResource {
         return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
     }
 
+    @org.springframework.web.bind.annotation.DeleteMapping("/{codigo}")
+    @org.springframework.web.bind.annotation.ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long codigo) {
+        lancamentoRepository.deleteById(codigo);
+    }
+
     @ExceptionHandler({ PessoaInexistenteOuInativaException.class })
     public ResponseEntity<Object> handlePessoaInexistenteOuInativaException(PessoaInexistenteOuInativaException ex) {
 

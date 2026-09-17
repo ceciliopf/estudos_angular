@@ -52,4 +52,11 @@ export class LancamentosPesquisa implements OnInit {
     this.pesquisar(pagina);
   }
 
+  excluir(lancamento: any) {
+    this.lancamentoService.excluir(lancamento.codigo)
+      .then(() => {
+        this.pesquisar(this.filtro.pagina); 
+      });
+  }
+
 }
