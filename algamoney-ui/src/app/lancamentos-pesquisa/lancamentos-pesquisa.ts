@@ -11,12 +11,15 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Lancamento, LancamentoFiltro } from '../lancamento';
 import { CalendarModule } from 'primeng/calendar';
 import { TableLazyLoadEvent } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 
 @Component({
   imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule
-  , FormsModule, CalendarModule],
+  , FormsModule, CalendarModule, ToastModule],
+  providers: [MessageService],
   selector: 'app-lancamentos-pesquisa',
   styleUrl: './lancamentos-pesquisa.css',
   templateUrl: './lancamentos-pesquisa.html',
@@ -29,7 +32,8 @@ export class LancamentosPesquisa implements OnInit {
   lancamentos: any[] = [];
   constructor(
     private lancamentoService: Lancamento,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +60,7 @@ export class LancamentosPesquisa implements OnInit {
     this.lancamentoService.excluir(lancamento.codigo)
       .then(() => {
         this.pesquisar(this.filtro.pagina); 
+        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Lançamento excluído com sucesso!' });
       });
   }
 
