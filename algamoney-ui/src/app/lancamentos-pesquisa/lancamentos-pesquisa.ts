@@ -8,18 +8,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
-import { Lancamento } from '../lancamento';
+import { Lancamento, LancamentoFiltro } from '../lancamento';
+import { CalendarModule } from 'primeng/calendar';
 
 
 
 @Component({
-  imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule, FormsModule],
+  imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule
+  , FormsModule, CalendarModule],
   selector: 'app-lancamentos-pesquisa',
   styleUrl: './lancamentos-pesquisa.css',
   templateUrl: './lancamentos-pesquisa.html',
 })
 export class LancamentosPesquisa implements OnInit {
   descricao = '';
+  dataVencimentoInicio!: Date;
+  dataVencimentoFim!: Date;
 
   lancamentos: any[] = [];
   constructor(
@@ -32,7 +36,19 @@ export class LancamentosPesquisa implements OnInit {
   }
 
   pesquisar() {
-    this.lancamentoService.pesquisar({ descricao: this.descricao })
+    const filtro = {} as LancamentoFiltro;
+
+    if (this.descricao) {
+      filtro.descricao = this.descricao;
+    }
+    if (this.dataVencimentoInicio) {
+      filtro.dataVencimentoInicio = this.dataVencimentoInicio;
+    }
+    if (this.dataVencimentoFim) {
+      filtro.dataVencimentoFim = this.dataVencimentoFim;
+    }
+
+    this.lancamentoService.pesquisar(filtro)
       .then(lancamentos => {
         this.lancamentos = lancamentos;
         this.cdr.detectChanges();

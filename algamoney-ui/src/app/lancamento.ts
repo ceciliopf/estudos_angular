@@ -5,6 +5,8 @@ import { firstValueFrom } from 'rxjs';
 
 export interface LancamentoFiltro {
   descricao: string;
+  dataVencimentoInicio: Date;
+  dataVencimentoFim: Date;
 }
 
 @Injectable({
@@ -40,9 +42,31 @@ export class Lancamento {
             params = params.set('descricao', filtro.descricao);
         }
 
+        if(filtro.dataVencimentoInicio){
+            params = params.set('dataVencimentoDe', this.formatDate(filtro.dataVencimentoInicio));
+        }
+
+        if(filtro.dataVencimentoFim){
+            params = params.set('dataVencimentoAte', this.formatDate(filtro.dataVencimentoFim));
+        }
+
         return firstValueFrom(this.http.get<any>(this.lancamentosUrl, { headers, params, responseType: 'json' }))
         .then((response: any) => {
             return response.content;
         });
+    }
+
+    private formatDate(date: Date): string {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+
+        return [year, month, day].join('-');
     }
 }
