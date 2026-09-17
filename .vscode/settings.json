@@ -1,15 +1,13 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.compile.nullAnalysis.mode": "disabled",
-    "editor.quickSuggestions": {
-        "other": "off",
-        "comments": "off",
-        "strings": "off"
-    },
     "editor.inlineSuggest.enabled": false,
-    "editor.acceptSuggestionOnEnter": "off",
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
     "editor.suggestOnTriggerCharacters": false,
-    "html.autoClosingTags": false,
-    "editor.autoClosingBrackets": "never",
-    "editor.autoClosingQuotes": "never"
+    "editor.wordBasedSuggestions": "off",
+    "editor.parameterHints.enabled": false,
+    "editor.hover.enabled": false,
+    "antigravity.inlineCompletions.enabled": false
 }

@@ -10,6 +10,7 @@ import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 import { Lancamento, LancamentoFiltro } from '../lancamento';
 import { CalendarModule } from 'primeng/calendar';
+import { TableLazyLoadEvent } from 'primeng/table';
 
 
 
@@ -32,16 +33,23 @@ export class LancamentosPesquisa implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.pesquisar();
+   // this.pesquisar();
   }
 
-  pesquisar() {
+  pesquisar(pagina = 0) {
+    this.filtro.pagina = pagina;
+
     this.lancamentoService.pesquisar(this.filtro)
       .then(resultado => {
         this.lancamentos = resultado.lancamentos;
         this.totalRegistros = resultado.total;
         this.cdr.detectChanges();
       });
+  }
+
+  aoMudarPagina(event: TableLazyLoadEvent) {
+    const pagina = event.first! / event.rows!;
+    this.pesquisar(pagina);
   }
 
 }
