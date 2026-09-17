@@ -7,6 +7,7 @@ import { definePreset } from '@primeng/themes';
 import { routes } from './app.routes';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -51,6 +52,8 @@ export const appConfig: ApplicationConfig = {
         clear: 'Limpar'
       }
     }),
-    { provide: LOCALE_ID, useValue: 'pt-BR' }
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    MessageService,
+    ConfirmationService
   ]
 };

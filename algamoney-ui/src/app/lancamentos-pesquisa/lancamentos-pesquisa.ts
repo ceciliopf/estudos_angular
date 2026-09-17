@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { ErrorHandlerService } from '../core/error-handler';
 
 
 
@@ -22,7 +23,6 @@ import { ConfirmationService } from 'primeng/api';
 @Component({
   imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule
     , FormsModule, CalendarModule, ToastModule, ConfirmDialogModule],
-  providers: [MessageService, ConfirmationService],
   selector: 'app-lancamentos-pesquisa',
   styleUrl: './lancamentos-pesquisa.css',
   templateUrl: './lancamentos-pesquisa.html',
@@ -37,7 +37,8 @@ export class LancamentosPesquisa implements OnInit {
     private lancamentoService: Lancamento,
     private cdr: ChangeDetectorRef,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private errorHandler: ErrorHandlerService
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +53,8 @@ export class LancamentosPesquisa implements OnInit {
         this.lancamentos = resultado.lancamentos;
         this.totalRegistros = resultado.total;
         this.cdr.detectChanges();
-      });
+      })
+      .catch(erro=> this.errorHandler.handle(erro));
   }
 
   aoMudarPagina(event: TableLazyLoadEvent) {
@@ -68,7 +70,8 @@ export class LancamentosPesquisa implements OnInit {
           .then(() => {
             this.pesquisar(this.filtro.pagina);
             this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Lançamento excluído com sucesso!' });
-          });
+          })
+          .catch(erro=> this.errorHandler.handle(erro));
       }
     })
 
