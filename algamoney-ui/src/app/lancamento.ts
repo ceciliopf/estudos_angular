@@ -3,10 +3,12 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
 
-export interface LancamentoFiltro {
-  descricao: string;
-  dataVencimentoInicio: Date;
-  dataVencimentoFim: Date;
+export class LancamentoFiltro {
+  descricao: string = ''
+  dataVencimentoInicio: any;
+  dataVencimentoFim: any;
+  pagina = 0;
+  itensPorPagina = 5;
 }
 
 @Injectable({
@@ -38,6 +40,9 @@ export class Lancamento {
         let params = new HttpParams()
             .set('resumo', '');
 
+        params = params.set('page', filtro.pagina.toString());
+        params = params.set('size', filtro.itensPorPagina.toString());
+
         if (filtro.descricao) {
             params = params.set('descricao', filtro.descricao);
         }
@@ -52,7 +57,12 @@ export class Lancamento {
 
         return firstValueFrom(this.http.get<any>(this.lancamentosUrl, { headers, params, responseType: 'json' }))
         .then((response: any) => {
-            return response.content;
+            const lancamentos = response.content;
+            const resultado = {
+                lancamentos,
+                total: response.totalElements
+            };
+            return resultado;
         });
     }
 

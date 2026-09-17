@@ -21,10 +21,10 @@ import { CalendarModule } from 'primeng/calendar';
   templateUrl: './lancamentos-pesquisa.html',
 })
 export class LancamentosPesquisa implements OnInit {
-  descricao = '';
-  dataVencimentoInicio!: Date;
-  dataVencimentoFim!: Date;
 
+  filtro = new LancamentoFiltro();
+
+  totalRegistros = 0;
   lancamentos: any[] = [];
   constructor(
     private lancamentoService: Lancamento,
@@ -36,21 +36,10 @@ export class LancamentosPesquisa implements OnInit {
   }
 
   pesquisar() {
-    const filtro = {} as LancamentoFiltro;
-
-    if (this.descricao) {
-      filtro.descricao = this.descricao;
-    }
-    if (this.dataVencimentoInicio) {
-      filtro.dataVencimentoInicio = this.dataVencimentoInicio;
-    }
-    if (this.dataVencimentoFim) {
-      filtro.dataVencimentoFim = this.dataVencimentoFim;
-    }
-
-    this.lancamentoService.pesquisar(filtro)
-      .then(lancamentos => {
-        this.lancamentos = lancamentos;
+    this.lancamentoService.pesquisar(this.filtro)
+      .then(resultado => {
+        this.lancamentos = resultado.lancamentos;
+        this.totalRegistros = resultado.total;
         this.cdr.detectChanges();
       });
   }
