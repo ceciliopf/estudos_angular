@@ -13,13 +13,16 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+
 
 
 
 @Component({
   imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule
-  , FormsModule, CalendarModule, ToastModule],
-  providers: [MessageService],
+    , FormsModule, CalendarModule, ToastModule, ConfirmDialogModule],
+  providers: [MessageService, ConfirmationService],
   selector: 'app-lancamentos-pesquisa',
   styleUrl: './lancamentos-pesquisa.css',
   templateUrl: './lancamentos-pesquisa.html',
@@ -33,11 +36,12 @@ export class LancamentosPesquisa implements OnInit {
   constructor(
     private lancamentoService: Lancamento,
     private cdr: ChangeDetectorRef,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
-   // this.pesquisar();
+    // this.pesquisar();
   }
 
   pesquisar(pagina = 0) {
@@ -57,11 +61,17 @@ export class LancamentosPesquisa implements OnInit {
   }
 
   excluir(lancamento: any) {
-    this.lancamentoService.excluir(lancamento.codigo)
-      .then(() => {
-        this.pesquisar(this.filtro.pagina); 
-        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Lançamento excluído com sucesso!' });
-      });
+    this.confirmationService.confirm({
+      message: "Tem certeza que deseja excluir este Lançamento?",
+      accept: () => {
+        this.lancamentoService.excluir(lancamento.codigo)
+          .then(() => {
+            this.pesquisar(this.filtro.pagina);
+            this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Lançamento excluído com sucesso!' });
+          });
+      }
+    })
+
   }
 
 }

@@ -1,0 +1,6 @@
+::ng-deep .dialog-botoes-invertidos .p-dialog-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
