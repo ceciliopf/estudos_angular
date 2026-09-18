@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TextareaModule } from 'primeng/textarea';
@@ -13,6 +13,7 @@ import { MessageComponent } from '../message/message';
 import { CategoriaService } from '../categoria.service';
 import { ErrorHandlerService } from '../core/error-handler';
 import { PessoaService } from '../pessoa';
+import { Categoria, Lancamento, Pessoa } from '../core/model';
 
 @Component({
   imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule, DropdownModule, InputNumberModule, MessageModule, MessageComponent],
@@ -21,6 +22,10 @@ import { PessoaService } from '../pessoa';
   templateUrl: './lancamento-cadastro.html',
 })
 export class LancamentoCadastro implements OnInit {
+  lancamento = new Lancamento();
+  categorias: Categoria[] = [];
+  pessoas: Pessoa[] = [];
+
   tipos = [
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' }
@@ -37,9 +42,9 @@ export class LancamentoCadastro implements OnInit {
     this.carregarPessoas();
   }
 
-  categorias: any[] = [];
-
-  pessoas: any[] = [];
+  salvar(form: NgForm) {
+  console.log('dados do lancamento', this.lancamento);
+}
 
   carregarPessoas() {
     return this.pessoaService.listarTodas()
@@ -55,16 +60,6 @@ export class LancamentoCadastro implements OnInit {
         this.categorias = categorias.map((c: any) => ({ label: c.nome, value: c.codigo }))
       })
       .catch(erro => this.errorHandler.handle(erro));
-  }
-
-  lancamento = {
-    tipo: 'RECEITA',
-    dataVencimento: new Date(),
-    dataPagamento: new Date(),
-    valor: 0,
-    descricao: '',
-    categoria: null,
-    pessoa: ''
   }
 
 }
