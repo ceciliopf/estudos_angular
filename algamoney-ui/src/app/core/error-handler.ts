@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
+import { HttpErrorResponse } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,14 +14,24 @@ export class ErrorHandlerService {
     handle(errorResponse: any) {
         let msg: string;
 
-        if(typeof errorResponse ==='string'){
+        if (typeof errorResponse === 'string') {
             msg = errorResponse;
-        }else {
-            msg= 'Erro ao processar serviço remoto. Tente novamente.'
-            console.log('Ocorreu um erro', errorResponse);
+        } else if (errorResponse instanceof HttpErrorResponse 
+                   && errorResponse.status >= 400 && errorResponse.status <= 499) {
+            let errors = errorResponse.error;
+            msg = 'Ocorreu um erro ao processar a sua solicitação';
+
+            try {
+                if (errors && errors[0] && errors[0].mensagemUsuario) {
+                    msg = errors[0].mensagemUsuario;
+                }
+            } catch (e) { }
+
+            console.error('Ocorreu um erro', errorResponse);
+        } else {
+            msg = 'Erro ao processar serviço remoto. Tente novamente.';
+            console.error('Ocorreu um erro', errorResponse);
         }
-
-
         // ... código do professor para descobrir qual foi o erro ...
         
         // No final, quando o professor fizer: this.toasty.error(msg);

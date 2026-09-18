@@ -52,4 +52,43 @@ export class PessoaService {
             return resultado;
         });
     }
+
+    async excluir(codigo: number): Promise<void> {
+        const tokenHeaders = new HttpHeaders()
+            .append('Content-Type', 'application/x-www-form-urlencoded')
+            .append('Authorization', 'Basic ' + btoa('angular:@ngul@r0'));
+
+        const body = new HttpParams()
+            .set('grant_type', 'client_credentials')
+            .set('scope', 'read');
+
+        const tokenResponse: any = await firstValueFrom(
+            this.http.post(this.tokenUrl, body.toString(), { headers: tokenHeaders })
+        );
+
+        const headers = new HttpHeaders()
+            .append('Authorization', `Bearer ${tokenResponse.access_token}`);
+
+        return firstValueFrom(this.http.delete<void>(`${this.pessoasUrl}/${codigo}`, { headers }));
+    }
+
+    async mudarStatus(codigo: number, ativo: boolean): Promise<void> {
+        const tokenHeaders = new HttpHeaders()
+            .append('Content-Type', 'application/x-www-form-urlencoded')
+            .append('Authorization', 'Basic ' + btoa('angular:@ngul@r0'));
+
+        const bodyAuth = new HttpParams()
+            .set('grant_type', 'client_credentials')
+            .set('scope', 'read');
+
+        const tokenResponse: any = await firstValueFrom(
+            this.http.post(this.tokenUrl, bodyAuth.toString(), { headers: tokenHeaders })
+        );
+
+        const headers = new HttpHeaders()
+            .append('Authorization', `Bearer ${tokenResponse.access_token}`)
+            .append('Content-Type', 'application/json');
+
+        return firstValueFrom(this.http.put<void>(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers }));
+    }
 }

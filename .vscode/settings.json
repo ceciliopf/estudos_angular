@@ -8,6 +8,6 @@
     "editor.suggestOnTriggerCharacters": false,
     "editor.wordBasedSuggestions": "off",
     "editor.parameterHints.enabled": false,
-    "editor.hover.enabled": false,
+    "editor.hover.enabled": "off",
     "antigravity.inlineCompletions.enabled": false
 }

@@ -9,9 +9,13 @@ import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
 import { PessoaService, PessoaFiltro } from '../pessoa';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { ErrorHandlerService } from '../core/error-handler';
 
 @Component({
-  imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule, FormsModule],
+  imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule, FormsModule, ToastModule, ConfirmDialogModule],
   selector: 'app-pessoas-pesquisa',
   styleUrl: './pessoas-pesquisa.css',
   templateUrl: './pessoas-pesquisa.html',
@@ -23,7 +27,10 @@ export class PessoasPesquisa implements OnInit {
 
   constructor(
     private pessoaService: PessoaService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -37,11 +44,39 @@ export class PessoasPesquisa implements OnInit {
         this.pessoas = resultado.pessoas;
         this.totalRegistros = resultado.total;
         this.cdr.detectChanges();
-      });
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
   aoMudarPagina(event: TableLazyLoadEvent) {
     const pagina = event.first! / event.rows!;
     this.pesquisar(pagina);
+  }
+
+  excluir(pessoa: any) {
+    this.confirmationService.confirm({
+      message: "Tem certeza que deseja excluir esta Pessoa?",
+      accept: () => {
+        this.pessoaService.excluir(pessoa.codigo)
+          .then(() => {
+            this.pesquisar(this.filtro.pagina);
+            this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Pessoa excluída com sucesso!' });
+          })
+          .catch(erro => this.errorHandler.handle(erro));
+      }
+    });
+  }
+
+  alternarStatus(pessoa: any) {
+    const novoStatus = !pessoa.ativo;
+
+    this.pessoaService.mudarStatus(pessoa.codigo, novoStatus)
+      .then(() => {
+        const acao = novoStatus ? 'ativada' : 'desativada';
+        pessoa.ativo = novoStatus;
+        this.messageService.add({ severity: 'success', detail: `Pessoa ${acao} com sucesso!` });
+        this.cdr.detectChanges();
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 }

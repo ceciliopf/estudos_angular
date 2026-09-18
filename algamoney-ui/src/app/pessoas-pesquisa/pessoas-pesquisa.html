@@ -45,13 +45,13 @@
             </td>
             <td>
               <span class="p-column-title">Status</span>
-              <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top" [style.color]="pessoa.ativo ? 'blue' : 'red'" style="text-decoration: none;">
+              <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top" [style.color]="pessoa.ativo ? 'blue' : 'red'" style="text-decoration: none;" (click)="alternarStatus(pessoa)">
                 {{ pessoa.ativo ? 'Ativo' : 'Inativo' }}
               </a>
             </td>
             <td class="col-acoes">
               <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="excluir(pessoa)"></button>
             </td>
           </tr>
         </ng-template>
@@ -62,3 +62,6 @@
     </div>
   </div>
 </div>
+<p-toast></p-toast>
+<p-confirmDialog header="Confirmação" icon="pi pi-exclamation-triangle" appendTo="body" acceptLabel="Sim" rejectLabel="Não" styleClass="dialog-botoes-invertidos">
+</p-confirmDialog>
