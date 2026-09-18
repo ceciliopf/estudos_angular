@@ -12,6 +12,7 @@ import { MessageModule } from 'primeng/message';
 import { MessageComponent } from '../message/message';
 import { CategoriaService } from '../categoria.service';
 import { ErrorHandlerService } from '../core/error-handler';
+import { PessoaService } from '../pessoa';
 
 @Component({
   imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule, DropdownModule, InputNumberModule, MessageModule, MessageComponent],
@@ -24,26 +25,36 @@ export class LancamentoCadastro implements OnInit {
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' }
   ];
-  
-  constructor ( 
+
+  constructor(
+    private pessoaService: PessoaService,
     private categoriaService: CategoriaService,
     private errorHandler: ErrorHandlerService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.carregarCategorias();
+    this.carregarPessoas();
   }
 
   categorias: any[] = [];
-  
+
   pessoas: any[] = [];
-  
-  carregarCategorias(){
+
+  carregarPessoas() {
+    return this.pessoaService.listarTodas()
+      .then(pessoas => {
+        this.pessoas = pessoas.map((p: any) => ({ label: p.nome, value: p.codigo }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarCategorias() {
     return this.categoriaService.listarTodas()
       .then(categorias => {
-        this.categorias = categorias.map((c: any) => ({label: c.nome, value: c.codigo}))
-        })
-    .catch(erro => this.errorHandler.handle(erro));
+        this.categorias = categorias.map((c: any) => ({ label: c.nome, value: c.codigo }))
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
   lancamento = {
@@ -56,5 +67,5 @@ export class LancamentoCadastro implements OnInit {
     pessoa: ''
   }
 
- }
+}
 

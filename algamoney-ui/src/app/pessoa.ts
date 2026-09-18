@@ -53,6 +53,26 @@ export class PessoaService {
         });
     }
 
+    async listarTodas(): Promise<any> {
+        const tokenHeaders = new HttpHeaders()
+            .append('Content-Type', 'application/x-www-form-urlencoded')
+            .append('Authorization', 'Basic ' + btoa('angular:@ngul@r0'));
+
+        const bodyAuth = new HttpParams()
+            .set('grant_type', 'client_credentials')
+            .set('scope', 'read');
+
+        const tokenResponse: any = await firstValueFrom(
+            this.http.post(this.tokenUrl, bodyAuth.toString(), { headers: tokenHeaders })
+        );
+
+        const headers = new HttpHeaders()
+            .append('Authorization', `Bearer ${tokenResponse.access_token}`);
+
+        return firstValueFrom(this.http.get<any>(this.pessoasUrl, { headers }))
+            .then((response: any) => response.content);
+    }
+
     async excluir(codigo: number): Promise<void> {
         const tokenHeaders = new HttpHeaders()
             .append('Content-Type', 'application/x-www-form-urlencoded')
