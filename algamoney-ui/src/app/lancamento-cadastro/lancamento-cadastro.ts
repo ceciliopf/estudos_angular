@@ -14,10 +14,13 @@ import { ErrorHandlerService } from '../core/error-handler';
 import { PessoaService } from '../pessoa';
 import { Categoria, Lancamento, Pessoa } from '../core/model';
 import { MessageComponent } from '../message/message';
-import { RouterModule } from '@angular/router';
+import { LancamentoService } from '../lancamento';
+import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule, DropdownModule, InputNumberModule, MessageModule, MessageComponent, RouterModule],
+  imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule,
+    DropdownModule, InputNumberModule, MessageModule, MessageComponent, RouterModule],
   selector: 'app-lancamento-cadastro',
   styleUrl: './lancamento-cadastro.css',
   templateUrl: './lancamento-cadastro.html',
@@ -35,17 +38,21 @@ export class LancamentoCadastro implements OnInit {
   constructor(
     private pessoaService: PessoaService,
     private categoriaService: CategoriaService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private route: ActivatedRoute,
+    private lancamentoService: LancamentoService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.carregarCategorias();
     this.carregarPessoas();
+    console.log(this.route.snapshot.params['codigo']);
   }
 
   salvar(form: NgForm) {
-  console.log('dados do lancamento', this.lancamento);
-}
+    console.log('dados do lancamento', this.lancamento);
+  }
 
   carregarPessoas() {
     return this.pessoaService.listarTodas()

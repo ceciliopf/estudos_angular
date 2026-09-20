@@ -14,7 +14,7 @@ export class LancamentoFiltro {
 @Injectable({
   providedIn: 'root'
 })
-export class Lancamento {
+export class LancamentoService {
 
     lancamentosUrl = 'http://localhost:8080/lancamentos';
     tokenUrl = 'http://localhost:8080/oauth2/token';
