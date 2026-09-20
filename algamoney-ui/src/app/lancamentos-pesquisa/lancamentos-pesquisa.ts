@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { TabViewModule } from 'primeng/tabview';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonDirective } from 'primeng/button';
@@ -22,7 +22,7 @@ import { ErrorHandlerService } from '../core/error-handler';
 
 @Component({
   imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule
-    , FormsModule, CalendarModule, ToastModule, ConfirmDialogModule],
+    , FormsModule, CalendarModule, ToastModule, ConfirmDialogModule, RouterModule],
   selector: 'app-lancamentos-pesquisa',
   styleUrl: './lancamentos-pesquisa.css',
   templateUrl: './lancamentos-pesquisa.html',

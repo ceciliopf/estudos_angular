@@ -9,14 +9,15 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MessageModule } from 'primeng/message';
-import { MessageComponent } from '../message/message';
 import { CategoriaService } from '../categoria.service';
 import { ErrorHandlerService } from '../core/error-handler';
 import { PessoaService } from '../pessoa';
 import { Categoria, Lancamento, Pessoa } from '../core/model';
+import { MessageComponent } from '../message/message';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule, DropdownModule, InputNumberModule, MessageModule, MessageComponent],
+  imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule, DropdownModule, InputNumberModule, MessageModule, MessageComponent, RouterModule],
   selector: 'app-lancamento-cadastro',
   styleUrl: './lancamento-cadastro.css',
   templateUrl: './lancamento-cadastro.html',
