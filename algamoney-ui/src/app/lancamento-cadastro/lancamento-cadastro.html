@@ -2,7 +2,7 @@
   <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
     <div class="grid">
       <div class="col-12">
-        <h1>Novo Lançamento</h1>
+        <h1>{{titulo}}</h1>
       </div>
 
       <div class="col-12">
@@ -38,12 +38,12 @@
       <div class="col-12 md:col-6 p-fluid">
         <label>Categoria</label>
         <p-dropdown [options]="categorias" [style]="{width: '100%'}" placeholder="Selecione"
-          [(ngModel)]="lancamento.categoria" name="categoria"></p-dropdown>
+          [(ngModel)]="lancamento.categoria.codigo" name="categoria"></p-dropdown>
       </div>
       <div class="col-12 md:col-6 p-fluid">
         <label>Pessoa</label>
         <p-dropdown [options]="pessoas" [style]="{width: '100%'}" placeholder="Selecione" [filter]="true"
-          [(ngModel)]="lancamento.pessoa" name="pessoa"></p-dropdown>
+          [(ngModel)]="lancamento.pessoa.codigo" name="pessoa"></p-dropdown>
       </div>
       <div class="col-12 p-fluid">
         <label>Observação</label>

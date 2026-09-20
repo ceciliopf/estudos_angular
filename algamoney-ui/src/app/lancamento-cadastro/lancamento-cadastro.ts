@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgForm, FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { TextareaModule } from 'primeng/textarea';
 import { CalendarModule } from 'primeng/calendar';
-import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TextareaModule } from 'primeng/textarea';
 import { CategoriaService } from '../categoria.service';
 import { ErrorHandlerService } from '../core/error-handler';
-import { PessoaService } from '../pessoa';
 import { Categoria, Lancamento, Pessoa } from '../core/model';
-import { MessageComponent } from '../message/message';
 import { LancamentoService } from '../lancamento';
-import { Router, RouterModule } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { MessageComponent } from '../message/message';
+import { PessoaService } from '../pessoa';
 
 @Component({
   imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule,
@@ -41,13 +40,22 @@ export class LancamentoCadastro implements OnInit {
     private errorHandler: ErrorHandlerService,
     private route: ActivatedRoute,
     private lancamentoService: LancamentoService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.carregarCategorias();
     this.carregarPessoas();
-    console.log(this.route.snapshot.params['codigo']);
+    const codigoLancamento =this.route.snapshot.params['codigo'];
+
+    if (codigoLancamento) {
+      this.carregarLancamento(codigoLancamento);
+    }
+  }
+
+  get titulo(): string {
+    return this.lancamento.codigo ? 'Edição de Lançamento' : 'Novo Lançamento';
   }
 
   salvar(form: NgForm) {
@@ -66,6 +74,19 @@ export class LancamentoCadastro implements OnInit {
     return this.categoriaService.listarTodas()
       .then(categorias => {
         this.categorias = categorias.map((c: any) => ({ label: c.nome, value: c.codigo }))
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarLancamento(codigo: number) {
+    return this.lancamentoService.buscarPorCodigo(codigo)
+      .then(lancamento => {
+        this.lancamento = {
+          ...lancamento,
+          categoria: lancamento.categoria || new Categoria(),
+          pessoa: lancamento.pessoa || new Pessoa()
+        };
+        this.cdr.detectChanges();
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
