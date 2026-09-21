@@ -5,6 +5,7 @@ import { PessoasCadastro } from './pessoas-cadastro/pessoas-cadastro';
 import { PessoasPesquisa } from './pessoas-pesquisa/pessoas-pesquisa';
 
 export const routes: Routes = [
+    { path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
     { path: 'lancamentos', component: LancamentosPesquisa },
     { path: 'lancamentos/novo', component: LancamentoCadastro },
     { path: 'lancamentos/:codigo', component: LancamentoCadastro },
