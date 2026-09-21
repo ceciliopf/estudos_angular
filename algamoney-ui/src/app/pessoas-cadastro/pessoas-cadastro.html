@@ -1,5 +1,5 @@
 <div class="container">
-  <form >
+  <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
     <div class="grid">
       <div class="col-12">
         <h1>Nova Pessoa</h1>
@@ -7,42 +7,42 @@
 
       <div class="col-12 p-fluid">
         <label>Nome</label>
-        <input pInputText type="text" >
+        <input pInputText type="text" name="nome" [(ngModel)]="pessoa.nome" required>
       </div>
 
       <div class="col-12 md:col-9 p-fluid">
         <label>Logradouro</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="logradouro" [(ngModel)]="pessoa.endereco.logradouro" required>
       </div>
 
       <div class="col-12 md:col-3 p-fluid">
         <label>Número</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="numero" [(ngModel)]="pessoa.endereco.numero" required>
       </div>
 
       <div class="col-12 md:col-4 p-fluid">
         <label>Complemento</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="complemento" [(ngModel)]="pessoa.endereco.complemento">
       </div>
 
       <div class="col-12 md:col-4 p-fluid">
         <label>Bairro</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="bairro" [(ngModel)]="pessoa.endereco.bairro" required>
       </div>
 
       <div class="col-12 md:col-4 p-fluid">
         <label>CEP</label>
-        <p-inputMask mask="99999-999"></p-inputMask>
+        <p-inputMask mask="99999-999" name="cep" [(ngModel)]="pessoa.endereco.cep" required></p-inputMask>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <label>Cidade</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="cidade" [(ngModel)]="pessoa.endereco.cidade" required>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <label>Estado</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="estado" [(ngModel)]="pessoa.endereco.estado" required>
       </div>
 
       <div class="col-12">

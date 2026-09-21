@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { Pessoa } from './core/model';
 
 export class PessoaFiltro {
   nome: string = '';
@@ -110,5 +111,25 @@ export class PessoaService {
             .append('Content-Type', 'application/json');
 
         return firstValueFrom(this.http.put<void>(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers }));
+    }
+
+    async adicionar(pessoa: Pessoa): Promise<Pessoa> {
+        const tokenHeaders = new HttpHeaders()
+            .append('Content-Type', 'application/x-www-form-urlencoded')
+            .append('Authorization', 'Basic ' + btoa('angular:@ngul@r0'));
+
+        const bodyAuth = new HttpParams()
+            .set('grant_type', 'client_credentials')
+            .set('scope', 'read');
+
+        const tokenResponse: any = await firstValueFrom(
+            this.http.post(this.tokenUrl, bodyAuth.toString(), { headers: tokenHeaders })
+        );
+
+        const headers = new HttpHeaders()
+            .append('Authorization', `Bearer ${tokenResponse.access_token}`)
+            .append('Content-Type', 'application/json');
+
+        return firstValueFrom(this.http.post<Pessoa>(this.pessoasUrl, pessoa, { headers }));
     }
 }

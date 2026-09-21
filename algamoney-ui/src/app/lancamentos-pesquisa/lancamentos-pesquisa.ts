@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
-import { Lancamento, LancamentoFiltro } from '../lancamento';
+import { LancamentoService, LancamentoFiltro } from '../lancamento';
 import { CalendarModule } from 'primeng/calendar';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -34,7 +34,7 @@ export class LancamentosPesquisa implements OnInit {
   totalRegistros = 0;
   lancamentos: any[] = [];
   constructor(
-    private lancamentoService: Lancamento,
+    private lancamentoService: LancamentoService,
     private cdr: ChangeDetectorRef,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,

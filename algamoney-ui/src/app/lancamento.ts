@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-
+import { Lancamento } from './core/model';
 
 export class LancamentoFiltro {
   descricao: string = ''
@@ -14,7 +14,7 @@ export class LancamentoFiltro {
 @Injectable({
   providedIn: 'root'
 })
-export class Lancamento {
+export class LancamentoService {
 
     lancamentosUrl = 'http://localhost:8080/lancamentos';
     tokenUrl = 'http://localhost:8080/oauth2/token';
@@ -83,6 +83,26 @@ export class Lancamento {
             .append('Authorization', `Bearer ${tokenResponse.access_token}`);
 
         return firstValueFrom(this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers }));
+    }
+
+    async adicionar(lancamento: Lancamento): Promise<any> {
+        
+        const tokenHeaders = new HttpHeaders()
+            .append('Content-Type', 'application/x-www-form-urlencoded')
+            .append('Authorization', 'Basic ' + btoa('angular:@ngul@r0'));
+
+        const body = new HttpParams()
+            .set('grant_type', 'client_credentials')
+            .set('scope', 'read');
+
+        const tokenResponse: any = await firstValueFrom(
+            this.http.post(this.tokenUrl, body.toString(), { headers: tokenHeaders })
+        );
+
+        const headers = new HttpHeaders()
+            .append('Authorization', `Bearer ${tokenResponse.access_token}`);
+
+        return firstValueFrom(this.http.post<any>(`${this.lancamentosUrl}`, lancamento, { headers }));
     }
 
     private formatDate(date: Date): string {

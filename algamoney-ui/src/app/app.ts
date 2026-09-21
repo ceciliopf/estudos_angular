@@ -7,10 +7,12 @@ import { PessoasCadastro } from './pessoas-cadastro/pessoas-cadastro';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
+import { ToastModule } from 'primeng/toast';
+
 registerLocaleData(localePt);
 
 @Component({
-  imports: [LancamentosPesquisa, PessoasPesquisa, Navbar, LancamentoCadastro, PessoasCadastro],
+  imports: [LancamentosPesquisa, PessoasPesquisa, Navbar, LancamentoCadastro, PessoasCadastro, ToastModule],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
