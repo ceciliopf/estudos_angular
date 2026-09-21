@@ -16,6 +16,7 @@ import { Categoria, Lancamento, Pessoa } from '../core/model';
 import { LancamentoService } from '../lancamento';
 import { MessageComponent } from '../message/message';
 import { PessoaService } from '../pessoa';
+import { MessageService } from 'primeng/api';
 
 @Component({
   imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule,
@@ -41,14 +42,14 @@ export class LancamentoCadastro implements OnInit {
     private route: ActivatedRoute,
     private lancamentoService: LancamentoService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
     this.carregarCategorias();
     this.carregarPessoas();
     const codigoLancamento =this.route.snapshot.params['codigo'];
-
     if (codigoLancamento) {
       this.carregarLancamento(codigoLancamento);
     }
@@ -59,7 +60,25 @@ export class LancamentoCadastro implements OnInit {
   }
 
   salvar(form: NgForm) {
-    console.log('dados do lancamento', this.lancamento);
+    if (this.lancamento.codigo) {
+      this.lancamentoService.atualizar(this.lancamento)
+        .then(lancamentoAtualizado => {
+          this.lancamento = {
+            ...lancamentoAtualizado,
+            categoria: lancamentoAtualizado.categoria || new Categoria(),
+            pessoa: lancamentoAtualizado.pessoa || new Pessoa()
+          };
+          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Lançamento atualizado com sucesso!' });
+        })
+        .catch(erro => this.errorHandler.handle(erro));
+    } else {
+      this.lancamentoService.adicionar(this.lancamento)
+        .then(lancamentoAdicionado => {
+          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Lançamento adicionado com sucesso!' });
+          this.router.navigate(['/lancamentos', lancamentoAdicionado.codigo]);
+        })
+        .catch(erro => this.errorHandler.handle(erro));
+    }
   }
 
   carregarPessoas() {

@@ -103,7 +103,11 @@ export class LancamentoService {
             .append('Authorization', `Bearer ${tokenResponse.access_token}`)
             .append('Content-Type', 'application/json');
 
-        return firstValueFrom(this.http.post<Lancamento>(this.lancamentosUrl, lancamento, { headers }));
+        return firstValueFrom(this.http.post<Lancamento>(this.lancamentosUrl, lancamento, { headers }))
+            .then(response => {
+                this.converterStringsParaDatas([response]);
+                return response;
+            });
     }
 
     async atualizar(lancamento: Lancamento): Promise<Lancamento> {
@@ -125,7 +129,10 @@ export class LancamentoService {
 
         return firstValueFrom(
             this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, lancamento, { headers })
-        );
+        ).then(response => {
+            this.converterStringsParaDatas([response]);
+            return response;
+        });
     }
 
     async buscarPorCodigo(codigo: number): Promise<Lancamento> {
