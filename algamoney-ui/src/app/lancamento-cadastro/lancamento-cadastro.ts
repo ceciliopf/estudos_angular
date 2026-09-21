@@ -44,10 +44,8 @@ export class LancamentoCadastro implements OnInit {
     private lancamentoService: LancamentoService,
     private messageService: MessageService,
     private route: ActivatedRoute,
-    private lancamentoService: LancamentoService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private messageService: MessageService,
     private title: Title
   ) {}
 

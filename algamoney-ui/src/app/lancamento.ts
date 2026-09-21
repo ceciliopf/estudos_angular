@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { Lancamento } from './core/model';import { Lancamento } from './core/model';
+import { Lancamento } from './core/model';
 
 
 export class LancamentoFiltro {
@@ -15,7 +15,6 @@ export class LancamentoFiltro {
 @Injectable({
   providedIn: 'root'
 })
-export class LancamentoService {
 export class LancamentoService {
 
     lancamentosUrl = 'http://localhost:8080/lancamentos';
