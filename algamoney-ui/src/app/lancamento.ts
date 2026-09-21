@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { Lancamento } from './core/model';
+import { Lancamento } from './core/model';import { Lancamento } from './core/model';
+
 
 export class LancamentoFiltro {
   descricao: string = ''
@@ -14,6 +15,7 @@ export class LancamentoFiltro {
 @Injectable({
   providedIn: 'root'
 })
+export class LancamentoService {
 export class LancamentoService {
 
     lancamentosUrl = 'http://localhost:8080/lancamentos';
@@ -85,8 +87,56 @@ export class LancamentoService {
         return firstValueFrom(this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers }));
     }
 
-    async adicionar(lancamento: Lancamento): Promise<any> {
-        
+    async adicionar(lancamento: Lancamento): Promise<Lancamento> {
+        const tokenHeaders = new HttpHeaders()
+            .append('Content-Type', 'application/x-www-form-urlencoded')
+            .append('Authorization', 'Basic ' + btoa('angular:@ngul@r0'));
+
+        const body = new HttpParams()
+            .set('grant_type', 'client_credentials')
+            .set('scope', 'read write');
+
+        const tokenResponse: any = await firstValueFrom(
+            this.http.post(this.tokenUrl, body.toString(), { headers: tokenHeaders })
+        );
+
+        const headers = new HttpHeaders()
+            .append('Authorization', `Bearer ${tokenResponse.access_token}`)
+            .append('Content-Type', 'application/json');
+
+        return firstValueFrom(this.http.post<Lancamento>(this.lancamentosUrl, lancamento, { headers }))
+            .then(response => {
+                this.converterStringsParaDatas([response]);
+                return response;
+            });
+    }
+
+    async atualizar(lancamento: Lancamento): Promise<Lancamento> {
+        const tokenHeaders = new HttpHeaders()
+            .append('Content-Type', 'application/x-www-form-urlencoded')
+            .append('Authorization', 'Basic ' + btoa('angular:@ngul@r0'));
+
+        const body = new HttpParams()
+            .set('grant_type', 'client_credentials')
+            .set('scope', 'read write');
+
+        const tokenResponse: any = await firstValueFrom(
+            this.http.post(this.tokenUrl, body.toString(), { headers: tokenHeaders })
+        );
+
+        const headers = new HttpHeaders()
+            .append('Authorization', `Bearer ${tokenResponse.access_token}`)
+            .append('Content-Type', 'application/json');
+
+        return firstValueFrom(
+            this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, lancamento, { headers })
+        ).then(response => {
+            this.converterStringsParaDatas([response]);
+            return response;
+        });
+    }
+
+    async buscarPorCodigo(codigo: number): Promise<Lancamento> {
         const tokenHeaders = new HttpHeaders()
             .append('Content-Type', 'application/x-www-form-urlencoded')
             .append('Authorization', 'Basic ' + btoa('angular:@ngul@r0'));
@@ -102,7 +152,22 @@ export class LancamentoService {
         const headers = new HttpHeaders()
             .append('Authorization', `Bearer ${tokenResponse.access_token}`);
 
-        return firstValueFrom(this.http.post<any>(`${this.lancamentosUrl}`, lancamento, { headers }));
+        return firstValueFrom(this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers }))
+            .then((lancamento: Lancamento) => {
+                this.converterStringsParaDatas([lancamento]);
+                return lancamento;
+            });
+    }
+
+    private converterStringsParaDatas(lancamentos: Lancamento[]) {
+        for (const lancamento of lancamentos) {
+            if (lancamento.dataVencimento) {
+                lancamento.dataVencimento = new Date(lancamento.dataVencimento + 'T00:00:00');
+            }
+            if (lancamento.dataPagamento) {
+                lancamento.dataPagamento = new Date(lancamento.dataPagamento + 'T00:00:00');
+            }
+        }
     }
 
     private formatDate(date: Date): string {

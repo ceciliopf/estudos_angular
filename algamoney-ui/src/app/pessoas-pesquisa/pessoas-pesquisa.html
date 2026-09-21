@@ -17,9 +17,8 @@
   </div>
   <div class="grid">
     <div class="col-12">
-      <p-table [value]="pessoas" [paginator]="true" [rows]="filtro.itensPorPagina" 
-        [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)"
-        responsiveLayout="stack">
+      <p-table [value]="pessoas" [paginator]="true" [rows]="filtro.itensPorPagina" [lazy]="true"
+        [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)" responsiveLayout="stack">
         <ng-template pTemplate="header">
           <tr>
             <th>Nome</th>
@@ -45,23 +44,27 @@
             </td>
             <td>
               <span class="p-column-title">Status</span>
-              <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top" [style.color]="pessoa.ativo ? 'blue' : 'red'" style="text-decoration: none;" (click)="alternarStatus(pessoa)">
+              <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top"
+                [style.color]="pessoa.ativo ? 'blue' : 'red'" style="text-decoration: none;"
+                (click)="alternarStatus(pessoa)">
                 {{ pessoa.ativo ? 'Ativo' : 'Inativo' }}
               </a>
             </td>
             <td class="col-acoes">
               <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="excluir(pessoa)"></button>
+              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+                (click)="excluir(pessoa)"></button>
             </td>
           </tr>
         </ng-template>
       </p-table>
       <div>
-        <a pButton label="Nova Pessoa"></a>
+        <a pButton routerLink="/pessoas/novo" label="Nova Pessoa"></a>
       </div>
     </div>
   </div>
 </div>
 <p-toast></p-toast>
-<p-confirmDialog header="Confirmação" icon="pi pi-exclamation-triangle" appendTo="body" acceptLabel="Sim" rejectLabel="Não" styleClass="dialog-botoes-invertidos">
+<p-confirmDialog header="Confirmação" icon="pi pi-exclamation-triangle" appendTo="body" acceptLabel="Sim"
+  rejectLabel="Não" styleClass="dialog-botoes-invertidos">
 </p-confirmDialog>

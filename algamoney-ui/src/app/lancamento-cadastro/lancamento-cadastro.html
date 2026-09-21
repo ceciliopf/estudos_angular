@@ -2,24 +2,28 @@
   <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
     <div class="grid">
       <div class="col-12">
-        <h1>Novo Lançamento</h1>
+        <h1>{{titulo}}</h1>
       </div>
 
       <div class="col-12">
-        <p-selectButton [options]="tipos" #tipo [allowEmpty]="false" [(ngModel)]="lancamento.tipo" name="tipo"></p-selectButton>
+        <p-selectButton [options]="tipos" #tipo [allowEmpty]="false" [(ngModel)]="lancamento.tipo"
+          name="tipo"></p-selectButton>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
         <label>Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy" type="date" [(ngModel)]="lancamento.dataVencimento" name="dataVencimento"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" type="date" [(ngModel)]="lancamento.dataVencimento"
+          name="dataVencimento"></p-calendar>
       </div>
       <div class="col-6 md:col-3 p-fluid">
         <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
-        <p-calendar dateFormat="dd/mm/yy" type="date" [(ngModel)]="lancamento.dataPagamento" name="dataPagamento"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" type="date" [(ngModel)]="lancamento.dataPagamento"
+          name="dataPagamento"></p-calendar>
       </div>
       <div class="col-12 md:col-9 p-fluid">
         <label>Descrição</label>
-        <input pInputText type="text" name="descricao" [(ngModel)]="lancamento.descricao" #descricao="ngModel" required minlength="5">
+        <input pInputText type="text" name="descricao" [(ngModel)]="lancamento.descricao" #descricao="ngModel" required
+          minlength="5">
         <app-message [control]="descricao" error="required" text="Informe uma descrição"></app-message>
         <app-message [control]="descricao" error="minlength"
           text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres">
@@ -28,15 +32,18 @@
 
       <div class="col-12 md:col-3 p-fluid">
         <label>Valor</label>
-        <p-inputNumber mode="currency" currency="BRL" locale="pt-BR" placeholder="0,00" [(ngModel)]="lancamento.valor" name="valor"></p-inputNumber>
+        <p-inputNumber mode="currency" currency="BRL" locale="pt-BR" placeholder="0,00" [(ngModel)]="lancamento.valor"
+          name="valor"></p-inputNumber>
       </div>
       <div class="col-12 md:col-6 p-fluid">
         <label>Categoria</label>
-        <p-dropdown [options]="categorias" [style]="{width: '100%'}" placeholder="Selecione" [(ngModel)]="lancamento.categoria" name="categoria"></p-dropdown>
+        <p-dropdown [options]="categorias" [style]="{width: '100%'}" placeholder="Selecione"
+          [(ngModel)]="lancamento.categoria.codigo" name="categoria"></p-dropdown>
       </div>
       <div class="col-12 md:col-6 p-fluid">
         <label>Pessoa</label>
-        <p-dropdown [options]="pessoas" [style]="{width: '100%'}" placeholder="Selecione" [filter]="true" [(ngModel)]="lancamento.pessoa" name="pessoa"></p-dropdown>
+        <p-dropdown [options]="pessoas" [style]="{width: '100%'}" placeholder="Selecione" [filter]="true"
+          [(ngModel)]="lancamento.pessoa.codigo" name="pessoa"></p-dropdown>
       </div>
       <div class="col-12 p-fluid">
         <label>Observação</label>
@@ -44,8 +51,9 @@
       </div>
       <div class="col-12">
         <button pButton type="submit" label="Salvar"></button>
-        <button pButton type="button" label="Novo" class="p-button-info"></button>
-        <a href="javascript:;">Voltar para a pesquisa</a>
+        <button pButton type="button" label="Novo" class="p-button-info"
+        (click)="novo(f)"></button>
+        <a routerLink="/lancamentos">Voltar para a pesquisa</a>
       </div>
     </div>
   </form>

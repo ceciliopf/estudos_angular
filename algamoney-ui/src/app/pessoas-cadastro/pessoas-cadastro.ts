@@ -7,9 +7,11 @@ import { Pessoa } from '../core/model';
 import { PessoaService } from '../pessoa';
 import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from '../core/error-handler';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  imports: [FormsModule, InputTextModule, ButtonModule, InputMaskModule],
+  standalone: true,
+  imports: [FormsModule, InputTextModule, ButtonModule, InputMaskModule, RouterModule],
   selector: 'app-pessoas-cadastro',
   styleUrl: './pessoas-cadastro.css',
   templateUrl: './pessoas-cadastro.html',

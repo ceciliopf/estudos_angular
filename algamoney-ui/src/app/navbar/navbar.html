@@ -3,16 +3,16 @@
     <div class="container">
         <div class="ui-g">
             <div class="ui-g-12">
-                <a href="#" class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i class="pi pi-bars"></i></a>
+                <a href="javascript:;" class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i class="pi pi-bars"></i></a>
             </div>
         </div>
     </div>
 
     <ul class="navbar-menu" [hidden]="!exibindoMenu">
         <li class="navbar-usuario">Jose da Silva</li>
-        <li class="navbar-menu-item"><a href="">Lançamentos</a></li>
-        <li class="navbar-menu-item"><a href="">Pessoas</a></li>
-        <li class="navbar-menu-item"><a href="">Logout</a></li>
+        <li class="navbar-menu-item" routerLinkActive="ativo"><a routerLink="/lancamentos">Lançamentos</a></li>
+        <li class="navbar-menu-item" routerLinkActive="ativo"><a routerLink="/pessoas">Pessoas</a></li>
+        <li class="navbar-menu-item" routerLinkActive="ativo"><a routerLink="/login">Logout</a></li>
     </ul>
-    
+
 </nav>

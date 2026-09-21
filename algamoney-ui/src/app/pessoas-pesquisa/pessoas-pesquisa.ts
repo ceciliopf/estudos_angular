@@ -13,9 +13,11 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ErrorHandlerService } from '../core/error-handler';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule, FormsModule, ToastModule, ConfirmDialogModule],
+  standalone: true,
+  imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule, FormsModule, ToastModule, ConfirmDialogModule, RouterModule],
   selector: 'app-pessoas-pesquisa',
   styleUrl: './pessoas-pesquisa.css',
   templateUrl: './pessoas-pesquisa.html',
