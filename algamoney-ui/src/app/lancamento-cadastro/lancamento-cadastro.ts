@@ -49,7 +49,7 @@ export class LancamentoCadastro implements OnInit {
   ngOnInit() {
     this.carregarCategorias();
     this.carregarPessoas();
-    const codigoLancamento =this.route.snapshot.params['codigo'];
+    const codigoLancamento = this.route.snapshot.params['codigo'];
     if (codigoLancamento) {
       this.carregarLancamento(codigoLancamento);
     }
@@ -108,6 +108,11 @@ export class LancamentoCadastro implements OnInit {
         this.cdr.detectChanges();
       })
       .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  novo(form: NgForm) {
+    form.reset(new Lancamento());
+    this.router.navigate(['/lancamentos/novo'])
   }
 
 }
