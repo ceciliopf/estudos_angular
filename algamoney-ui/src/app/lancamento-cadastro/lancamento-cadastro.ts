@@ -17,8 +17,10 @@ import { LancamentoService } from '../lancamento';
 import { MessageComponent } from '../message/message';
 import { PessoaService } from '../pessoa';
 import { MessageService } from 'primeng/api';
+import { Title } from '@angular/platform-browser';
 
 @Component({
+  standalone: true,
   imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, TextareaModule, CalendarModule, SelectButtonModule,
     DropdownModule, InputNumberModule, MessageModule, MessageComponent, RouterModule],
   selector: 'app-lancamento-cadastro',
@@ -44,9 +46,11 @@ export class LancamentoCadastro implements OnInit {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private messageService: MessageService,
-  ) { }
+    private title: Title
+  ) {}
 
   ngOnInit() {
+    this.title.setTitle(this.titulo);
     this.carregarCategorias();
     this.carregarPessoas();
     const codigoLancamento = this.route.snapshot.params['codigo'];
@@ -105,6 +109,7 @@ export class LancamentoCadastro implements OnInit {
           categoria: lancamento.categoria || new Categoria(),
           pessoa: lancamento.pessoa || new Pessoa()
         };
+        this.title.setTitle(this.titulo);
         this.cdr.detectChanges();
       })
       .catch(erro => this.errorHandler.handle(erro));

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MessageModule } from 'primeng/message';
 
 @Component({
+  standalone: true,
   selector: 'app-message',
   imports: [CommonModule, MessageModule],
   template: `

@@ -16,11 +16,13 @@ import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ErrorHandlerService } from '../core/error-handler';
+import { Title } from '@angular/platform-browser';
 
 
 
 
 @Component({
+  standalone: true,
   imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule
     , FormsModule, CalendarModule, ToastModule, ConfirmDialogModule, RouterModule],
   selector: 'app-lancamentos-pesquisa',
@@ -38,11 +40,12 @@ export class LancamentosPesquisa implements OnInit {
     private cdr: ChangeDetectorRef,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
-    // this.pesquisar();
+    this.title.setTitle('Pesquisa de Lançamentos');
   }
 
   pesquisar(pagina = 0) {

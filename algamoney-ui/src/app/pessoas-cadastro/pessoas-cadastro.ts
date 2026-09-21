@@ -6,6 +6,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone: true,
   imports: [FormsModule, InputTextModule, ButtonModule, InputMaskModule, RouterModule],
   selector: 'app-pessoas-cadastro',
   styleUrl: './pessoas-cadastro.css',

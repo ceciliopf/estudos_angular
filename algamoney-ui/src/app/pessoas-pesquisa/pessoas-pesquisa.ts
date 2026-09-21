@@ -16,6 +16,7 @@ import { ErrorHandlerService } from '../core/error-handler';
 import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone: true,
   imports: [RouterOutlet, TabViewModule, InputTextModule, TableModule, ButtonDirective, CommonModule, TagModule, TooltipModule, FormsModule, ToastModule, ConfirmDialogModule, RouterModule],
   selector: 'app-pessoas-pesquisa',
   styleUrl: './pessoas-pesquisa.css',

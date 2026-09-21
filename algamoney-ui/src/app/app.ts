@@ -7,15 +7,17 @@ import { PessoasCadastro } from './pessoas-cadastro/pessoas-cadastro';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 registerLocaleData(localePt);
 
 @Component({
+  standalone: true,
   imports: [LancamentosPesquisa, PessoasPesquisa, Navbar, LancamentoCadastro, PessoasCadastro, RouterModule],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
-  providers: [],
+  providers: [Title],
 })
 export class App {
 }
